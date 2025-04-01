@@ -42,12 +42,12 @@ function checkInput() {
   let input = inputProgEl.value
   if (input==="A"||input==="B"||input==="C") {
       addBtnEl.disabled=false;
-      errorSpace1El.innerHTML ="";
+      if(errorSpace1El)errorSpace1El.innerHTML ="";
      
   }
   else {
       addBtnEl.disabled = true;
-       errorSpace1El.innerHTML="Välj A, B eller C!"
+       if(errorSpace1El)errorSpace1El.innerHTML="Välj A, B eller C!"
   }
 }
 
@@ -61,13 +61,15 @@ function init () {
 }
 
 function loadCourses() {
-  if(localStorage!=null){
-    let savedCourse = JSON.parse(localStorage.getItem("course"));
-    
+  if(localStorage){
+  let savedCourse = localStorage.getItem("course");
+
+  if(savedCourse){let objCourse=JSON.parse(savedCourse);
+
       if (courseListEl){
-      courseListEl.textContent = `Kurskod: ${savedCourse.code}. Kursnamn: ${savedCourse.name}. 
-      Progression: ${savedCourse.progression}. Kursplan: ${savedCourse.syllabus}.`}
-    };
+      courseListEl.textContent = `Kurskod: ${objCourse.code}. Kursnamn: ${objCourse.name}. 
+      Progression: ${objCourse.progression}. Kursplan: ${objCourse.syllabus}.`}}
+  };
   }
 
 
